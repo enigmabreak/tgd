@@ -11,7 +11,8 @@
          <font size="+3">TGDownloader</font>
       </b></div>
 
-   <p>TGDownloader is a high-speed, multi-account autonomous Telegram download suite tailored for educational resources, videos, and multi-gigabyte queues with zero-bandwidth throttling.</p>
+   <p>TGDownloader is a high-speed, multi-account autonomous Telegram download suite tailored for educational resources,
+      videos, and multi-gigabyte queues with zero-bandwidth throttling.</p>
 
    <h2>Download</h2>
    <A NAME="download"></A>
@@ -27,7 +28,8 @@
          <tr>
             <td>Windows</td>
             <td id="latest-version">Latest</td>
-            <td><a id="download-link" href="https://github.com/enigmabreak/TGDownloader/releases/latest">Download Installer</a>
+            <td><a id="download-link" href="https://github.com/enigmabreak/tgd/releases/latest">Download
+                  Installer</a>
             </td>
 
    </TABLE>
@@ -40,28 +42,29 @@
 
    <h2>Links</h2>
    <UL>
-      <li><a href="https://github.com/enigmabreak/TGDownloader">https://github.com/enigmabreak/TGDownloader</a></li>
-      <li><a href="https://github.com/enigmabreak/TGDownloader/releases">https://github.com/enigmabreak/TGDownloader/releases</a></li>
+      <li><a href="https://github.com/enigmabreak/tgd">https://github.com/enigmabreak/tgd</a></li>
+      <li><a href="https://github.com/enigmabreak/tgd/releases">https://github.com/enigmabreak/tgd/releases</a></li>
       <li><a href="mailto:soumyadip.tech@gmail.com">soumyadip.tech@gmail.com</a></li>
    </UL>
 
    <hr>
-   With &lt;3 Versitylab <hr>
+   With &lt;3 Versitylab
+   <hr>
 
-      <script>
-         fetch('https://api.github.com/repos/enigmabreak/TGDownloader/releases/latest')
-            .then(response => response.json())
-            .then(data => {
-               if (data.tag_name) {
-                  document.getElementById('latest-version').textContent = data.tag_name;
-               }
-               const exeAsset = data.assets && data.assets.find(asset => asset.name.endsWith('.exe'));
-               if (exeAsset) {
-                  document.getElementById('download-link').href = exeAsset.browser_download_url;
-               }
-            })
-            .catch(err => console.error('Error fetching release version:', err));
-      </script>
+   <script>
+      fetch('https://api.github.com/repos/enigmabreak/tgd/releases/latest')
+         .then(response => response.json())
+         .then(data => {
+            if (data.tag_name) {
+               document.getElementById('latest-version').textContent = data.tag_name;
+            }
+            const exeAsset = data.assets && data.assets.find(asset => asset.name.endsWith('.exe'));
+            if (exeAsset) {
+               document.getElementById('download-link').href = exeAsset.browser_download_url;
+            }
+         })
+         .catch(err => console.error('Error fetching release version:', err));
+   </script>
 </body>
 
 </html>
