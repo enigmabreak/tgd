@@ -1,0 +1,67 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>TGDownloader</title>
+</head>
+
+<body>
+   <div><b>
+         <font size="+3">TGDownloader</font>
+      </b></div>
+
+   <p>TGDownloader is a high-speed, multi-account autonomous Telegram download suite tailored for educational resources, videos, and multi-gigabyte queues with zero-bandwidth throttling.</p>
+
+   <h2>Download</h2>
+   <A NAME="download"></A>
+   <TABLE BORDER=1>
+
+      Get the latest version of TGDownloader.
+      <p>
+         <TR>
+            <TD>Platform</TD>
+            <TD>Version</TD>
+            <TD>Link</TD>
+
+         <tr>
+            <td>Windows</td>
+            <td id="latest-version">Latest</td>
+            <td><a id="download-link" href="https://github.com/enigmabreak/TGDownloader/releases/latest">Download Installer</a>
+            </td>
+
+   </TABLE>
+   <br>
+   <p>
+
+   <h2><A HREF="documentation.html">Documentation</A></h2>
+
+   <h2><A HREF="license.html">License</A></h2>
+
+   <h2>Links</h2>
+   <UL>
+      <li><a href="https://github.com/enigmabreak/TGDownloader">https://github.com/enigmabreak/TGDownloader</a></li>
+      <li><a href="https://github.com/enigmabreak/TGDownloader/releases">https://github.com/enigmabreak/TGDownloader/releases</a></li>
+      <li><a href="mailto:soumyadip.tech@gmail.com">soumyadip.tech@gmail.com</a></li>
+   </UL>
+
+   <hr>
+   With &lt;3 Versitylab <hr>
+
+      <script>
+         fetch('https://api.github.com/repos/enigmabreak/TGDownloader/releases/latest')
+            .then(response => response.json())
+            .then(data => {
+               if (data.tag_name) {
+                  document.getElementById('latest-version').textContent = data.tag_name;
+               }
+               const exeAsset = data.assets && data.assets.find(asset => asset.name.endsWith('.exe'));
+               if (exeAsset) {
+                  document.getElementById('download-link').href = exeAsset.browser_download_url;
+               }
+            })
+            .catch(err => console.error('Error fetching release version:', err));
+      </script>
+</body>
+
+</html>

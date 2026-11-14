@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TGDownloader Documentation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #555555;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e1e1e;
+        --text: #cccccc;
+        --text-muted: #999999;
+        --border: #333333;
+        --accent: #3b82f6;
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 2em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2em;
+    }
+
+    p,
+    li {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+    }
+
+    code {
+      background: rgba(128, 128, 128, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+
+    .spec-table th {
+      background: rgba(128, 128, 128, 0.05);
+      color: var(--text);
+    }
+
+    .spec-table td {
+      color: var(--text-muted);
+    }
+
+    .badge-pill {
+      margin-top: 50px;
+      margin-bottom: -10px;
+      padding: 10px 20px;
+      background: rgba(128, 128, 128, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      display: inline-block;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>TGDownloader Documentation</h1>
+  <p>Welcome to TGDownloader, a high-speed, multi-account autonomous download engine built specifically for downloading large educational courses, videos, and multi-gigabyte queues from any Telegram channel without bandwidth throttling or account restrictions.</p>
+
+  <div class="badge-pill">
+    Architectural Features
+  </div>
+
+  <h2>1. Multi-Account Fleet Pooling &amp; Load Balancing</h2>
+  <p>Telegram restricts standard free accounts to ~20–30 Mbps (~2.5–3.5 MB/s) of download throughput. TGDownloader breaks through this protocol ceiling by managing an intelligent pooling architecture across independent account namespaces (<code>default</code>, <code>acc2</code>, <code>acc3</code>, etc.):</p>
+  <ul>
+    <li><strong>Isolated Session Spaces:</strong> Each added account maintains its own isolated crypto session and connection states.</li>
+    <li><strong>Automatic Dynamic Load Balancing:</strong> Clicking <strong>Load Distribution</strong> in the Tasks Queue balances topics evenly across all accounts in your fleet so downloads execute in parallel at maximum aggregate throughput.</li>
+    <li><strong>Smart Fallback:</strong> If an account encounters a Telegram flood limit or temporary DC rate cap, other workers continue running without interrupting queue progress.</li>
+  </ul>
+
+  <h2>2. Zero-Friction QR Pairing &amp; Profile Detection</h2>
+  <p>Adding an account requires no technical configuration, API credentials, phone numbers, or SMS verification codes:</p>
+  <ul>
+    <li>Open the <strong>Account</strong> tab and click <strong>+ New Account</strong>.</li>
+    <li>Open Telegram on your smartphone (&rarr; <em>Settings &rarr; Devices &rarr; Link Desktop Device</em>) and scan the QR code.</li>
+    <li>The engine automatically inspects the session token, detects your <strong>User ID</strong> and <strong>Username</strong> (<code>@handle</code>), and registers the account into your fleet immediately.</li>
+  </ul>
+
+  <h2>3. High-Throughput Stream Scaling &amp; Connection Pooling</h2>
+  <p>Because each free Telegram account delivers approximately 25 Mbps (~3.1 MB/s) of steady throughput, aggregate fleet throughput scales linearly with your internet connection:</p>
+
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>Internet Connection</th>
+        <th>Recommended Fleet</th>
+        <th>Expected Throughput</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>50 Mbps</strong></td>
+        <td>2 Free Accounts</td>
+        <td>~6.2 MB/s aggregate</td>
+      </tr>
+      <tr>
+        <td><strong>100 Mbps</strong></td>
+        <td>4 Free Accounts</td>
+        <td>~12.5 MB/s aggregate</td>
+      </tr>
+      <tr>
+        <td><strong>200 Mbps</strong></td>
+        <td>8 Free Accounts</td>
+        <td>~25.0 MB/s aggregate</td>
+      </tr>
+      <tr>
+        <td><strong>300+ Mbps</strong></td>
+        <td>12+ Free Accounts / Premium</td>
+        <td>Full line saturation</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Each active topic stream operates with <strong>8 parallel chunk threads</strong> and a <strong>16-connection DC pool</strong> for optimal packet delivery.</p>
+
+  <h2>4. Dynamic Topic Configuration &amp; Post Ranges</h2>
+  <p>You can add topics from any public or joined Telegram channel by entering its link (e.g. <code>https://t.me/channel_name</code>) or <code>@username</code>. The download engine supports flexible post syntax:</p>
+  <ul>
+    <li><strong>Single Post ID:</strong> <code>1722</code></li>
+    <li><strong>Comma-Separated List:</strong> <code>1722, 1725, 1730</code></li>
+    <li><strong>Continuous Range:</strong> <code>1743..1788</code> (all posts between 1743 and 1788 inclusive)</li>
+    <li><strong>Mixed Range Syntax:</strong> <code>1722..1731, 1948..1952, 1996..2008</code></li>
+  </ul>
+  <p>Expand <strong>Advanced Options</strong> to filter by media type (<em>Videos Only</em>, <em>Documents Only</em>, or <em>Custom Extensions</em>) and fine-tune thread/pool concurrency per topic.</p>
+
+  <h2>5. Storage Target Recommendation &amp; Cloud Drives</h2>
+  <p>When creating a topic, TGDownloader automatically inspects your physical disks and highlights the drive with the highest free space (e.g. <code>★ Recommended: Drive E:\</code>). You can also download straight into <strong>Google Drive for Desktop</strong> (mounted as <code>G:\My Drive</code>) or <strong>OneDrive</strong>, streaming files directly into cloud storage without consuming local drive space.</p>
+
+  <div class="badge-pill">
+    Automation &amp; Performance
+  </div>
+
+  <h2>6. Automated Telegram Mobile Push Alerts</h2>
+  <p>Receive instant notifications on your phone whenever a topic finishes downloading, if a network error occurs, or when the full queue completes:</p>
+  <ul>
+    <li>TGDownloader automatically links to your paired Telegram User ID.</li>
+    <li>Customizable completion and auto-shutdown alerts allow personalized messages to be delivered straight to your Telegram app.</li>
+    <li>No manual bot configuration required, operating autonomously via one-click activation.</li>
+  </ul>
+
+  <h2>7. Windows Defender 1-Click Optimization</h2>
+  <p>During multi-chunk high-speed downloads, Windows Defender's Antimalware Service (<code>MsMpEng.exe</code>) scans incoming chunks as they hit the disk, causing CPU spikes and disk throttling. Clicking <strong>Add Windows Defender Exclusion</strong> in the <strong>Power Watchdog</strong> tab registers the directory with Windows Security, immediately freeing CPU cycles and enabling full NVMe/SSD speeds.</p>
+
+  <h2>8. Overnight Power Watchdog</h2>
+  <p>Built for set-and-forget overnight operation:</p>
+  <ul>
+    <li><strong>Prevent PC Sleep:</strong> Keeps Windows awake while download workers are actively streaming.</li>
+    <li><strong>Auto-Shutdown PC on Completion:</strong> Automatically powers down your PC cleanly after all queued downloads complete.</li>
+  </ul>
+
+  <h2>9. Native Terminal &amp; Instant Stop</h2>
+  <p>Monitor transfer progress, chunk rates, and status logs in real time in the <strong>Terminal &amp; Logs</strong> tab, powered by low-latency native Electron IPC. Clicking <strong style="display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#ef4444" style="vertical-align: middle;"><rect width="20" height="20" x="2" y="2" rx="3"/></svg>Stop</strong> terminates all running background download processes cleanly in under 0.1 seconds.</p>
+
+  <div
+    style="margin-top: 60px; text-align: right; font-size: 1em; font-weight: 500; color: var(--text); padding-bottom: 40px;">
+    With <span style="color: #ff3366;">❤️</span> and code,<br>
+    <div
+      style="font-family: 'Caveat', 'Brush Script MT', cursive; color: #d97706; font-size: 1.8em; line-height: 1; margin-top: 8px; transform: rotate(-2deg);">
+      Soumyadip</div>
+  </div>
+
+</body>
+
+</html>
